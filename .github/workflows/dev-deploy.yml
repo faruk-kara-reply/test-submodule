@@ -1,0 +1,13 @@
+name: Deploy to Dev
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - name: Deploy to Development
+        run: echo "Deployed to Development"
