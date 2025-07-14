@@ -1,10 +1,13 @@
 name: Release
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
       - main
 jobs:
   release:
+    if: github.event.pull_request.merged == true
     name: Release
     runs-on: ubuntu-latest
     permissions:
@@ -23,6 +26,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Release
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
